@@ -1,0 +1,93 @@
+{
+  "esversion":     6,
+  "node":          true,
+  "bitwise":       true,
+  "boss":          true,
+  "camelcase":     true,
+  "curly":         true,
+  "debug":         true,
+  "eqeqeq":        true,
+  "eqnull":        true,
+  "expr":          true,
+  "forin":         true,
+  "freeze":        true,
+  "globalstrict":  true,
+  "immed":         true,
+  "indent":        2,
+  "latedef":       "nofunc",
+  "maxcomplexity": 10,
+  "newcap":        true,
+  "noarg":         true,
+  "noempty":       true,
+  "nonew":         true,
+  "quotmark":      "single",
+  "strict":        false,
+  "trailing":      true,
+  "undef":         true,
+  "unused":        true,
+  "asi"           : true,
+
+  "overrides": {
+    "app/**": {
+      "browser": true,
+      "globals": {
+        "_":                    false,
+        "angular":              false,
+        "moment":               false,
+        "analytics":            false,
+        "JSZip":                false,
+        "ApiPlatformAlerts":    false,
+        "ApiPlatformAnalytics": false,
+        "React":                false,
+        "ReactDOM":             false
+
+      }
+    },
+
+    "app/**/*.test.js": {
+      "mocha":   true,
+      "globals": {
+        "inject": false,
+        "should": false
+      }
+    },
+
+    "test/**": {
+      "mocha":   true,
+      "globals": {
+        "faker": true,
+        "should": false
+      }
+    },
+
+    "test/support/factories/**": {
+      "globals": {
+        "_":         false,
+        "Factory":   false,
+        "faker":     false,
+        "multiline": false,
+        "util":      false
+      }
+    },
+
+    "test/app/**": {
+      "browser": true,
+      "globals": {
+        "$":               false,
+        "_":               false,
+        "angular":         false,
+        "browser":         false,
+        "by":              false,
+        "compileTemplate": false,
+        "element":         false,
+        "faker":           false,
+        "Factory":         false,
+        "inject":          false,
+        "jasmine":         false,
+        "module":          false,
+        "protractor":      false,
+        "sinon":           false
+      }
+    }
+  }
+}

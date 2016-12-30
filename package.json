@@ -1,0 +1,51 @@
+{
+  "name": "oas-raml-converter-service",
+  "version": "0.1.0",
+  "description": "rest service to expose oas-raml-converter operations",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "./node_modules/.bin/mocha --reporter spec",
+    "coverage": "./node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec",
+    "coveralls": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "report-coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "eslint": "./node_modules/.bin/eslint ./lib index.js ./lib",
+    "jshint": "./node_modules/.bin/jshint index.js ./lib ",
+    "style-check": "./node_modules/.bin/jscs index.js ./lib test/ ",
+    "style-fix": "./node_modules/.bin/jscs index.js ./lib test/ --fix",
+    "inspections": "npm run eslint && npm run jshint "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mulesoft/oas-raml-converter-xapi.git"
+  },
+  "author": "lecko",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "compression": "^1.6.2",
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "newrelic": "^1.34.0",
+    "oas-raml-converter": "0.0.7",
+    "request": "^2.78.0",
+    "winston": "^2.3.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "coveralls": "^2.11.15",
+    "eslint": "^3.10.2",
+    "eslint-config-google": "^0.7.0",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^2.0.1",
+    "jscs": "^3.0.7",
+    "jshint": "^2.9.4",
+    "mocha": "^3.1.2"
+  },
+  "bugs": {
+    "url": "https://github.com/mulesoft/oas-raml-converter-xapi/issues"
+  },
+  "homepage": "https://github.com/mulesoft/oas-raml-converter-xapi#readme"
+}

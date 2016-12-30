@@ -1,0 +1,14 @@
+sudo: false
+language: node_js
+node_js:
+- '6'
+addons:
+  ssh_known_hosts:
+  - github.com
+script:
+- npm test
+- npm run inspections
+- (npm run style-check || true)
+after_success:
+- npm run coverage
+- npm run report-coverage

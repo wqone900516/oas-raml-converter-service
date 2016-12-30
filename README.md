@@ -1,2 +1,2 @@
-# oas-raml-converter-xapi
-rest service to expose oas-raml-converter operationbs
+# oas-raml-converter-service
+rest service to expose oas-raml-converter operations
