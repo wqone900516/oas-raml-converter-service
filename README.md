@@ -8,6 +8,18 @@ To start the server with default properties:
 npm start
 ```
 
+To start the server overriding properties:
+```bash
+SERVER_PORT=5000 SERVER_FORK_BY_CPU=true NODE_ENV=production npm start
+```
+
+Available properties:
+
+1. *SERVER_PORT*: server port (default 3000)
+2. *SERVER_FORK_BY_CPU*: enable forking a worker for each cpu (default false)
+3. *NODE_ENV*: set environment: 'production', 'qa', 'development' (default: 'development')
+
+
 ## Development
 
 Install dependencies:
