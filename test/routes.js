@@ -27,34 +27,28 @@ class OasRamlConverterTest {
 
 routes(app, OasRamlConverterTest)
 
-
-
 describe('Routes', function () {
   this.timeout(300)
 
   it('POST Content /swagger/to/raml', () => {
-
     return request(app).post('/swagger/to/raml').send('content').set('Content-Type', 'text/plain').expect(200).then((res) => {
       expect(res.text).to.equal('convertSwaggerToRaml: content')
     })
   })
 
   it('POST Content /raml08/to/raml', () => {
-
     return request(app).post('/raml08/to/raml').send('content').set('Content-Type', 'text/plain').expect(200).then((res) => {
       expect(res.text).to.equal('convertRamlToRaml: content')
     })
   })
 
   it('POST Content /raml/to/swagger', () => {
-
     return request(app).post('/raml/to/swagger').send('content').set('Content-Type', 'text/plain').expect(200).then((res) => {
       expect(res.text).to.equal('convertRamlToSwagger: content')
     })
   })
 
   it('POST Content /raml08/to/swagger', () => {
-
     return request(app).post('/raml08/to/swagger').send('content').set('Content-Type', 'text/plain').expect(200).then((res) => {
       expect(res.text).to.equal('convertRaml08ToSwagger: content')
     })
@@ -63,7 +57,6 @@ describe('Routes', function () {
   it('POST File /swagger/to/raml', () => {
     return request(app).post('/swagger/to/raml')
       .set('Content-type','multipart/form-data')
-      //.field('api_key', 'abcd')
       .attach('srcFile', './test/content.txt').expect(200).then((res) => {
         expect(res.text).to.equal('convertSwaggerToRaml: content from file!')
       })
@@ -72,7 +65,6 @@ describe('Routes', function () {
   it('POST File /raml08/to/raml', () => {
     return request(app).post('/raml08/to/raml')
       .set('Content-type','multipart/form-data')
-      //.field('api_key', 'abcd')
       .attach('srcFile', './test/content.txt').expect(200).then((res) => {
         expect(res.text).to.equal('convertRamlToRaml: content from file!')
       })
@@ -81,7 +73,6 @@ describe('Routes', function () {
   it('POST File /raml/to/swagger', () => {
     return request(app).post('/raml/to/swagger')
       .set('Content-type','multipart/form-data')
-      //.field('api_key', 'abcd')
       .attach('srcFile', './test/content.txt').expect(200).then((res) => {
         expect(res.text).to.equal('convertRamlToSwagger: content from file!')
       })
@@ -90,15 +81,9 @@ describe('Routes', function () {
   it('POST File /raml08/to/swagger', () => {
     return request(app).post('/raml08/to/swagger')
       .set('Content-type','multipart/form-data')
-      //.field('api_key', 'abcd')
       .attach('srcFile', './test/content.txt').expect(200).then((res) => {
         expect(res.text).to.equal('convertRaml08ToSwagger: content from file!')
       })
   })
-
-
-
 })
-
-
 
