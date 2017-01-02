@@ -62,11 +62,14 @@ operations:
 * `/raml/to/swagger`
 * `/raml08/to/swagger`
 
-All operations can be used in two ways, multipart-form or posting a text/plain, for instance:
+All operations can be used in three ways, posting a text/plain or multipart-form of one-to-n files or one zip file, for instance:
 
+**posting a text/plain**
 ```
 curl -i -H "Content-type: text/plain"  -X POST http://localhost:3000/swagger/to/raml -d '{"swagger":"2.0","info":{"ver...
 ```
+
+**multipart-form of one-to-n files**
 
 The first file in multipart/form-data parameter will be the root file of the project
 ```
@@ -95,6 +98,34 @@ types:
 ```
 
 When sending _fileContents.raml_, we should send the name like: `types/fileContents.raml`
+
+
+**multipart-form with zipFile**
+
+Header _zip-root-file_: must be present with the relative path to the root file
+
+Having a zip _raml.zip_: 
+
+```
+api.raml
+examples/file.json
+examples/files.json
+examples/logs.json
+examples/save.json
+types/author.raml
+types/fileContent.raml
+types/fileContents.raml
+types/filePath.raml
+types/files.raml
+types/log.raml
+types/logs.raml
+```
+where _api.raml_ is the rootFile a right call to the service is:
+
+```
+curl -i -H "zip-root-file: api.raml" -POST -F "zip=@/tmp/raml.zip" http://localhost:3000/raml/to/swagger
+```
+
 
 
 More detail in raml spec.
