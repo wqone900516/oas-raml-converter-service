@@ -64,13 +64,37 @@ operations:
 
 All operations can be used in two ways, multipart-form or posting a text/plain, for instance:
 
-The name of the multipart/form-data parameter that contains file must be "srcFile"
+```
+curl -i -H "Content-type: text/plain"  -X POST http://localhost:3000/swagger/to/raml -d '{"swagger":"2.0","info":{"ver...
+```
+
+The first file in multipart/form-data parameter will be the root file of the project
 ```
 curl -i  -X POST -F "srcFile=@/tmp/swagger.json" http://localhost:3000/swagger/to/raml
 ```
 
+An invocation example with multiple files:
 ```
-curl -i -H "Content-type: text/plain"  -X POST http://localhost:3000/swagger/to/raml -d '{"swagger":"2.0","info":{"ver...
+curl -i  -X POST -F "api.raml=@/myFolder/spec/api.raml" 
+-F "types/author.raml=@/myFolder/spec/types/author.raml" 
+-F "types/fileContent.raml=@/myFolder/spec/types/fileContent.raml" 
+-F "types/fileContents.raml=@/myFolder/spec/types/fileContents.raml" 
+-F "types/filePath.raml=@/myFolder/spec/types/filePath.raml" 
+-F "types/files.raml=@/myFolder/spec/types/files.raml" 
+-F "types/log.raml=@/myFolder/spec/types/log.raml"  
+-F "types/logs.raml=@/myFolder/spec/types/logs.raml" http://localhost:3000/raml/to/swagger
 ```
+
+When using the api with multiple files, we have to take into account that the fileName should be the relative path from the rootFile.
+
+For instance in api.raml we can se something like:
+
+```
+types:
+  fileContents:           !include types/fileContents.raml
+```
+
+When sending _fileContents.raml_, we should send the name like: `types/fileContents.raml`
+
 
 More detail in raml spec.
