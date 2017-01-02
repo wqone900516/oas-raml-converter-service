@@ -64,6 +64,7 @@ operations:
 
 All operations can be used in two ways, multipart-form or posting a text/plain, for instance:
 
+The name of the multipart/form-data parameter that contains file must be "srcFile"
 ```
 curl -i  -X POST -F "srcFile=@/tmp/swagger.json" http://localhost:3000/swagger/to/raml
 ```
