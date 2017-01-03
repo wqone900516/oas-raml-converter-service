@@ -102,7 +102,7 @@ When sending _fileContents.raml_, we should send the name like: `types/fileConte
 
 **multipart-form with zipFile**
 
-Header _zip-root-file_: must be present with the relative path to the root file
+Query param _zip-root-file_ must be present with the relative path to the root file
 
 Having a zip _raml.zip_: 
 
@@ -123,7 +123,7 @@ types/logs.raml
 where _api.raml_ is the rootFile a right call to the service is:
 
 ```
-curl -i -H "zip-root-file: api.raml" -POST -F "zip=@/tmp/raml.zip" http://localhost:3000/raml/to/swagger
+curl -i  -POST -F "zip=@/tmp/raml.zip" http://localhost:3000/raml/to/swagger?zip-root-file=api.raml
 ```
 
 
