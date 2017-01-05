@@ -62,7 +62,7 @@ operations:
 * `/raml/to/swagger`
 * `/raml08/to/swagger`
 
-All operations can be used in three ways, posting a text/plain or multipart-form of one-to-n files or one zip file, for instance:
+All operations can be used in fourth ways, posting a text/plain or multipart-form of one-to-n files or getting by uri, for instance:
 
 **posting a text/plain**
 ```
