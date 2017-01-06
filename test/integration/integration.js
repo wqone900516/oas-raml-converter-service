@@ -12,14 +12,11 @@ const routes = require('../../lib/routes')
 const config = require('../../lib/config')
 
 describe('Integration', function () {
-  let listener = null
-
   before(function (done) {
     // start the server
 
-    const server = routes(app, OasRamlConverter)
+    routes(app, OasRamlConverter)
     app.listen(config.server.port)
-    //listener = server
     done();
   });
 
@@ -72,7 +69,6 @@ describe('Integration', function () {
       })
   })
 
-
   it('POST incomplete multipleFiles /raml/to/swagger', () => {
     return request(app).post('/raml/to/swagger')
       .set('Content-type','multipart/form-data')
@@ -87,7 +83,6 @@ describe('Integration', function () {
       })
   })
 
-
   it('POST incomplete multipleFiles /swagger/to/raml', () => {
     return request(app).post('/swagger/to/raml')
       .set('Content-type','multipart/form-data')
@@ -100,7 +95,4 @@ describe('Integration', function () {
         expect(res.text).to.endsWith('/spec/parameters.json \nHTTP ERROR 400')
       })
   })
-
-
-
 })

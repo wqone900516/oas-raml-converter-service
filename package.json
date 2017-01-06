@@ -13,7 +13,8 @@
     "jshint": "./node_modules/.bin/jshint index.js ./lib ",
     "style-check": "./node_modules/.bin/jscs index.js ./lib test/ ",
     "style-fix": "./node_modules/.bin/jscs index.js ./lib test/ --fix",
-    "inspections": "npm run eslint && npm run jshint "
+    "inspections": "npm run eslint && npm run jshint ",
+    "prepush": "npm test && npm run inspections && npm run style-fix "
   },
   "repository": {
     "type": "git",
