@@ -33,6 +33,18 @@ version: 0.1
           "*/*":
       400:
         description: "Cannot convert"
+  get:
+    description: convert swagger to raml base on an url
+    queryParameters:
+      url:
+        required: true
+        description: swagger definition url
+    responses:
+      200:
+        body:
+          "*/*":
+      400:
+        description: "Cannot convert"
 /raml08/to/raml:
   post:
     description: convert raml 0.8 to raml 1.0
@@ -45,6 +57,18 @@ version: 0.1
       zip-root-file:
         required: false
         description: relative root file when zip file is sent in multipart.
+    responses:
+      200:
+        body:
+          "*/*":
+      400:
+        description: "Cannot convert"
+  get:
+    description: convert raml 0.8 to raml 1.0 base on an url
+    queryParameters:
+      url:
+        required: true
+        description: raml08 definition url
     responses:
       200:
         body:
@@ -69,6 +93,18 @@ version: 0.1
           "*/*":
       400:
         description: "Cannot convert"
+  get:
+    description: convert raml 1.0 to swagger base on an url
+    queryParameters:
+      url:
+        required: true
+        description: raml definition url
+    responses:
+      200:
+        body:
+          "*/*":
+      400:
+        description: "Cannot convert"
 /raml08/to/swagger:
   post:
     description: convert raml 0.8 to raml
@@ -87,3 +123,16 @@ version: 0.1
           "*/*":
       400:
         description: "Cannot convert"
+  get:
+    description: convert raml 0.8 to raml base on an url
+    queryParameters:
+      url:
+        required: true
+        description: raml08 definition url
+    responses:
+      200:
+        body:
+          "*/*":
+      400:
+        description: "Cannot convert"
+
