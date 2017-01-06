@@ -6,7 +6,7 @@ const app = express()
 const chai = require('chai')
 chai.use(require('chai-string'));
 const expect = chai.expect
-const uuidResolver = require('../lib/converter/uuiResolver');
+const uuidResolver = require('../lib/converter/resolvers/uuiResolver');
 
 class OasRamlConverterTest {
 
@@ -112,7 +112,7 @@ describe('Routes', function () {
       .attach('srcFile2', './test/content.txt').expect(200).then((res) => {
         expect(res.text).to.startsWith('convertFileRaml08ToSwagger: http://localhost:3000/file/')
         expect(res.text).to.endsWith('/srcFile')
-        expect(0).to.equal(Object.keys(uuidResolver.map).length)
+        expect(Object.keys(uuidResolver.map).length).to.equal(0)
       })
   })
 })
