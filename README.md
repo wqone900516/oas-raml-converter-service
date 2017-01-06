@@ -3,6 +3,19 @@ rest service to expose oas-raml-converter operations
 
 ## Usage
 
+### Docker
+
+Build image from source
+```bash
+docker build -t oas-raml-converter:0.1 .
+```
+Run 
+```bash
+docker run -i -p 3000:3000 -t oas-raml-converter:0.1 /bin/bash
+```
+
+### Node
+
 To start the server with default properties:
 ```bash
 npm start
