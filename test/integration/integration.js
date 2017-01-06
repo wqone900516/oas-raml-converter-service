@@ -55,8 +55,56 @@ describe('Integration', function () {
       })
   })
 
+  it('POST multipleFiles validating and yaml /raml/to/swagger', () => {
+    return request(app).post('/raml/to/swagger?validate=true&format=yaml')
+      .set('Content-type','multipart/form-data')
+      .attach('api.raml', './test/integration/resources/raml/spec/api.raml')
+      .attach('types/author.raml', './test/integration/resources/raml/spec/types/author.raml')
+      .attach('types/fileContent.raml', './test/integration/resources/raml/spec/types/fileContent.raml')
+      .attach('types/fileContents.raml', './test/integration/resources/raml/spec/types/fileContents.raml')
+      .attach('types/filePath.raml', './test/integration/resources/raml/spec/types/filePath.raml')
+      .attach('types/files.raml', './test/integration/resources/raml/spec/types/files.raml')
+      .attach('types/log.raml', './test/integration/resources/raml/spec/types/log.raml')
+      .attach('types/logs.raml', './test/integration/resources/raml/spec/types/logs.raml')
+      .expect(200).then((res) => {
+        expect(res.text).to.startsWith('swagger: \'2.0\'')
+        expect(res.text).to.endsWith('x-basePath: \'{host}:{port}/experience/api/v1\'\n')
+      })
+  })
+
+  it('POST Auto multipleFiles validating and yaml /to/swagger', () => {
+    return request(app).post('/to/swagger?validate=true&format=yaml')
+      .set('Content-type','multipart/form-data')
+      .attach('api.raml', './test/integration/resources/raml/spec/api.raml')
+      .attach('types/author.raml', './test/integration/resources/raml/spec/types/author.raml')
+      .attach('types/fileContent.raml', './test/integration/resources/raml/spec/types/fileContent.raml')
+      .attach('types/fileContents.raml', './test/integration/resources/raml/spec/types/fileContents.raml')
+      .attach('types/filePath.raml', './test/integration/resources/raml/spec/types/filePath.raml')
+      .attach('types/files.raml', './test/integration/resources/raml/spec/types/files.raml')
+      .attach('types/log.raml', './test/integration/resources/raml/spec/types/log.raml')
+      .attach('types/logs.raml', './test/integration/resources/raml/spec/types/logs.raml')
+      .expect(200).then((res) => {
+        expect(res.text).to.startsWith('swagger: \'2.0\'')
+        expect(res.text).to.endsWith('x-basePath: \'{host}:{port}/experience/api/v1\'\n')
+      })
+  })
+
   it('POST multipleFiles /swagger/to/raml', () => {
     return request(app).post('/swagger/to/raml')
+      .set('Content-type','multipart/form-data')
+      .attach('spec/swagger.json', './test/integration/resources/swagger/spec/swagger.json')
+      .attach('spec/NewPet.json', './test/integration/resources/swagger/spec/NewPet.json')
+      .attach('spec/parameters.json', './test/integration/resources/swagger/spec/parameters.json')
+      .attach('spec/Pet.json', './test/integration/resources/swagger/spec/Pet.json')
+      .attach('common/Error.json', './test/integration/resources/swagger/common/Error.json')
+      .expect(200).then((res) => {
+        expect(res.text).to.startsWith('#%RAML 1.0')
+        expect(res.text).to.endsWith('allowedTargets: Method\n')
+      })
+  })
+
+  xit('POST AUTO multipleFiles /to/raml', () => {
+    return request(app).post('/to/raml')
       .set('Content-type','multipart/form-data')
       .attach('spec/swagger.json', './test/integration/resources/swagger/spec/swagger.json')
       .attach('spec/NewPet.json', './test/integration/resources/swagger/spec/NewPet.json')
