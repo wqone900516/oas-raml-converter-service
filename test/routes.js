@@ -2,8 +2,11 @@ const routes = require('../lib/routes')
 
 const express = require('express')
 const request = require('supertest-as-promised')
-const expect = require('chai').expect
 const app = express()
+const chai = require('chai')
+chai.use(require('chai-string'));
+const expect = chai.expect
+const uuidResolver = require('../lib/converter/uuiResolver');
 
 class OasRamlConverterTest {
 
@@ -21,6 +24,22 @@ class OasRamlConverterTest {
 
   static convertRaml08ToSwagger(ramlString) {
     return Promise.resolve('convertRaml08ToSwagger: ' + ramlString)
+  }
+
+  static convertFileSwaggerToRaml(rootFile) {
+    return Promise.resolve('convertFileSwaggerToRaml: ' + rootFile)
+  }
+
+  static convertFileRamlToRaml(rootFile) {
+    return Promise.resolve('convertFileRamlToRaml: ' + rootFile)
+  }
+
+  static convertFileRamlToSwagger(rootFile) {
+    return Promise.resolve('convertFileRamlToSwagger: ' + rootFile)
+  }
+
+  static convertFileRaml08ToSwagger(rootFile) {
+    return Promise.resolve('convertFileRaml08ToSwagger: ' + rootFile)
   }
 
 }
@@ -83,6 +102,17 @@ describe('Routes', function () {
       .set('Content-type','multipart/form-data')
       .attach('srcFile', './test/content.txt').expect(200).then((res) => {
         expect(res.text).to.equal('convertRaml08ToSwagger: content from file!')
+      })
+  })
+
+  it('POST File 2 /raml08/to/swagger', () => {
+    return request(app).post('/raml08/to/swagger')
+      .set('Content-type','multipart/form-data')
+      .attach('srcFile', './test/content.txt')
+      .attach('srcFile2', './test/content.txt').expect(200).then((res) => {
+        expect(res.text).to.startsWith('convertFileRaml08ToSwagger: http://localhost:3000/file/')
+        expect(res.text).to.endsWith('/srcFile')
+        expect(0).to.equal(Object.keys(uuidResolver.map).length)
       })
   })
 })
