@@ -1,0 +1,124 @@
+#%RAML 1.0
+baseUri: http://{host}:{port}/experience/api/v1
+baseUriParameters:
+  host:
+    example: exchange-vcs-1186014507.us-east-1.elb.amazonaws.com
+  port:
+    type: number
+    example: 8080
+title: api-designer experience api
+version: 0.1
+mediaType: application/json
+types:
+  fileContents:           !include types/fileContents.raml
+  filePath:               !include types/filePath.raml
+  files:                  !include types/files.raml
+  Logs:                   !include types/logs.raml
+traits:
+  commonHeaders:
+    headers:
+      x-owner-id:
+        description: vcs ownerId
+      x-organization-id:
+        description: vcs organizationId
+
+/ping:
+  get:
+    description: to check if service is up
+    responses:
+      200:
+/projects/{projectId}:
+  /save:
+    post:
+      description: save listed files (save and save All)
+      is: [ commonHeaders ]
+      body:
+        type: fileContents
+        example: !include examples/save.json
+      responses:
+        200:
+          body:
+            type: files
+            example: !include examples/files.json
+        409:
+          description: "Could not save changes"
+  /logs:
+    get:
+      queryParameters:
+        from:
+          description: from commit, default 1.
+        size:
+          description: count of commits to be returned, default 10.
+      description: list logs of project
+      responses:
+        201:
+          body:
+            type: Logs
+            example: !include examples/logs.json
+    /{commitId}:
+      get:
+        description: it returns the list of files involved in given commit
+        is: [ commonHeaders ]
+        responses:
+          200:
+            body:
+              type: files
+              example: !include examples/files.json
+  /files:
+    get:
+      description: Gets a list of the structure of the file system (open project)
+      is: [ commonHeaders ]
+      responses:
+        200:
+          body:
+            type: files
+            example: !include examples/files.json
+    /{filePath}:
+      description: filePath must be uri complain. / in filePath must be escaped
+      get:
+        description: Returns the given file (getFile)
+        is: [ commonHeaders ]
+        responses:
+          200:
+            body:
+              "*/*":
+      delete:
+        description: Deletes the given file or folder and commit changes (deleteFile)
+        is: [ commonHeaders ]
+        responses:
+          204:
+      /move:
+        post:
+          description: renames the file or folder (move or rename)
+          is: [ commonHeaders ]
+          body:
+            schema: filePath
+            example: !include examples/file.json
+          responses:
+            200:
+            400:
+              description: "The destination path should be different than the source path"
+            404:
+              description: "File not found"
+            409:
+              description: "The file or folder already exists"
+      /logs:
+        get:
+          queryParameters:
+            from:
+              description: from commit, default 1.
+            size:
+              description: count of commits, default 10.
+          description: list logs of the file
+          responses:
+            201:
+              body:
+                type: Logs
+                example: !include examples/logs.json
+        /{commitId}:
+          get:
+            description: it returns the file in the given commit
+            responses:
+              200:
+                body:
+                  "*/*":
