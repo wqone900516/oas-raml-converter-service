@@ -103,9 +103,8 @@ describe('Integration', function () {
       })
   })
 
-  xit('POST AUTO multipleFiles /to/raml', () => {
-    return request(app).post('/to/raml')
-      .set('Content-type','multipart/form-data')
+  it('POST AUTO multipleFiles /to/raml', () => {
+    return request(app).post('/to/raml').set('Content-type','multipart/form-data')
       .attach('spec/swagger.json', './test/integration/resources/swagger/spec/swagger.json')
       .attach('spec/NewPet.json', './test/integration/resources/swagger/spec/NewPet.json')
       .attach('spec/parameters.json', './test/integration/resources/swagger/spec/parameters.json')
