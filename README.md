@@ -75,7 +75,14 @@ operations:
 * `/raml/to/swagger`
 * `/raml08/to/swagger`
 
-All operations can be used in fourth ways, posting a text/plain or multipart-form of one-to-n files or getting by uri, for instance:
+All operations can be used in fourth ways, posting a text/plain or multipart-form of one-to-n files or getting by uri. 
+All operations accept these query params:
+
+**validate**: boolean, tells the converter to do a validation or not after conversion.  
+**format**: select output format (_json_, _yaml_)  
+
+
+For instance:
 
 **posting a text/plain**
 ```
@@ -86,7 +93,7 @@ curl -i -H "Content-type: text/plain"  -X POST http://localhost:3000/swagger/to/
 
 The first file in multipart/form-data parameter will be the root file of the project
 ```
-curl -i  -X POST -F "srcFile=@/tmp/swagger.json" http://localhost:3000/swagger/to/raml
+curl -i  -X POST -F "srcFile=@/tmp/swagger.json" http://localhost:3000/swagger/to/raml?validate=true&format=yaml
 ```
 
 An invocation example with multiple files:
@@ -136,9 +143,14 @@ types/logs.raml
 where _api.raml_ is the rootFile a right call to the service is:
 
 ```
-curl -i  -POST -F "zip=@/tmp/raml.zip" http://localhost:3000/raml/to/swagger?zip-root-file=api.raml
+curl -i  -X POST -F "zip=@/tmp/raml.zip" http://localhost:3000/raml/to/swagger?zip-root-file=api.raml
 ```
 
+**by url**
+
+```
+curl -i  -X GET http://localhost:3000/raml/to/swagger?url=http://www.example.com/path/to/some/api.raml
+```
 
 
 More detail in raml spec.
